@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remote Work Hub ZW | Verified remote jobs for Africa</title>
+<meta name="description" content="Curated remote jobs, AI opportunities, freelance gigs and internships for Zimbabweans and professionals across Africa. Every listing is reviewed before it goes live.">
+<meta property="og:title" content="Remote Work Hub ZW">
+<meta property="og:description" content="Remote jobs, checked before they reach you.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#08101f">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem("rwh-theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <h1 class="hero-title">Remote jobs, checked before they reach you.</h1>
+        <p class="hero-sub">Curated remote jobs, AI work, freelance gigs and internships for Zimbabweans and professionals across Africa.</p>
+        <form class="search" id="search-form" role="search">
+          <span class="search-icon" id="search-icon"></span>
+          <input id="q" type="search" placeholder="Search by role, company or skill" aria-label="Search jobs" autocomplete="off">
+          <button class="btn btn-primary" type="submit">Search jobs</button>
+        </form>
+        <p class="hero-meta" id="hero-meta">Loading jobs...</p>
+      </div>
+      <aside class="clocks" aria-labelledby="clocks-title">
+        <h2 id="clocks-title">The workday right now</h2>
+        <p class="clocks-sub">Where your clients are, and whether they're at their desks.</p>
+        <ul id="clock-list"></ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="jobs">
+    <div class="container">
+      <div class="section-head"><h2 class="section-title">Latest remote jobs</h2></div>
+      <div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
+      <div class="list-head"><span id="jobs-count" aria-live="polite"></span><button class="link-btn" id="clear" hidden>Clear filters</button></div>
+      <div class="job-list" id="job-list"></div>
+      <div class="more-wrap"><button class="btn btn-ghost" id="more" hidden>Show more jobs</button></div>
+    </div>
+  </section>
+
+  <section class="section" id="resources">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Before you apply</h2>
+        <p class="section-sub">Short guides to help you avoid scams and stand out to international employers.</p>
+      </div>
+      <div class="guides">
+        <details class="guide"><summary>How to spot a fake remote job</summary>
+          <ul>
+            <li><strong>You're asked to pay.</strong> Application, training, software or equipment fees are a red flag.</li>
+            <li><strong>Cheque or money-transfer requests.</strong> Anyone asking you to forward part of a payment is running a scam.</li>
+            <li><strong>No real company trail.</strong> Hiring only through chat apps, with no company email, website or LinkedIn page.</li>
+            <li><strong>Pay that's too good.</strong> High pay for easy work and no interview rarely turns out to be real.</li>
+            <li><strong>Check first.</strong> Search the company name with the word "scam" before sharing documents or bank details.</li>
+          </ul></details>
+        <details class="guide"><summary>CV tips for remote roles</summary>
+          <ul>
+            <li><strong>Keep it to one or two pages</strong> and tailor the top third to the job you're applying for.</li>
+            <li><strong>Lead with results.</strong> "Cut load time by 40%" beats "responsible for performance".</li>
+            <li><strong>Match the tools</strong> named in the listing, in your own words and only if you've used them.</li>
+            <li><strong>Link your work:</strong> portfolio, GitHub or LinkedIn, so reviewers can check it quickly.</li>
+            <li><strong>State your time zone</strong> and the hours you can overlap with the team.</li>
+          </ul></details>
+        <details class="guide"><summary>Remote interview tips</summary>
+          <ul>
+            <li><strong>Plan for power and data cuts.</strong> Charge devices, keep a mobile hotspot ready and tell the interviewer your backup plan.</li>
+            <li><strong>Test camera, microphone and the meeting link</strong> at least 15 minutes early.</li>
+            <li><strong>Prepare two or three examples</strong> of remote or independent work you've done.</li>
+            <li><strong>Ask how the team communicates:</strong> tools, meeting times and how work gets reviewed.</li>
+            <li><strong>Follow up within a day</strong> with a short thank-you email.</li>
+          </ul></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="subscribe">
+    <div class="container">
+      <div class="newsletter">
+        <div>
+          <h2>Get new remote jobs by email</h2>
+          <p class="lead">One email a week with the latest verified roles. Unsubscribe any time.</p>
+        </div>
+        <div>
+          <form id="newsletter-form" novalidate>
+            <div class="field-row">
+              <input class="input" type="email" id="newsletter-email" placeholder="you@example.com" required aria-label="Email address">
+              <button type="submit" class="btn btn-primary" id="newsletter-btn">Subscribe</button>
+            </div>
+            <p class="form-note" id="newsletter-note" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="common.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

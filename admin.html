@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin | Remote Work Hub ZW</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem("rwh-theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="flag-stripe"></div>
+<div class="admin-top"><div class="container header-inner">
+  <a class="logo" href="index.html"><span class="logo-mark" id="logo-mark"></span><span>RWHZ <span class="logo-accent">Admin</span></span></a>
+  <div class="header-actions">
+    <span class="who" id="who"></span>
+    <button class="btn btn-ghost btn-sm" id="logout" hidden>Log out</button>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Switch theme"><span class="icon-sun" id="i-sun"></span><span class="icon-moon" id="i-moon"></span></button>
+  </div>
+</div></div>
+
+<main class="container admin-main">
+  <section id="login" class="panel login-card">
+    <h1>Sign in</h1>
+    <p class="muted" style="margin-bottom:20px">Manage job listings.</p>
+    <form id="login-form">
+      <label class="field">Email<input type="email" id="login-email" autocomplete="username" required></label>
+      <label class="field">Password<input type="password" id="login-password" autocomplete="current-password" required></label>
+      <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+      <p class="msg" id="login-msg" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <section id="dash" hidden>
+    <div class="stats">
+      <div class="stat"><b id="n-pending">0</b><span>Pending review</span></div>
+      <div class="stat"><b id="n-published">0</b><span>Live</span></div>
+      <div class="stat"><b id="n-expired">0</b><span>Expired</span></div>
+    </div>
+    <div class="admin-wrap">
+      <div class="panel">
+        <h2 id="form-title">Add a job</h2>
+        <form id="job-form">
+          <label class="field">Job title<input id="title" required></label>
+          <label class="field">Company<input id="company" required></label>
+          <label class="field">Source<input id="source" placeholder="e.g. micro1, Contra, Upwork" required></label>
+          <label class="field">Job URL<input type="url" id="source_url" placeholder="https://" required></label>
+          <label class="field">Pay<input id="pay" placeholder="e.g. $20-$30/hr"></label>
+          <label class="field">Location<input id="location" placeholder="e.g. Worldwide"></label>
+          <label class="field">Job type
+            <select id="job_type"><option>Freelance</option><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option></select></label>
+          <label class="field">Category<input id="category" placeholder="e.g. Web Development"></label>
+          <label class="field">Expires on <small>(optional, hides the job automatically)</small><input type="date" id="expires"></label>
+          <label class="field">Description<textarea id="description" rows="6"></textarea></label>
+          <label class="check" id="publish-row"><input type="checkbox" id="publish-now"> Publish right away</label>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-primary" type="submit" id="save-btn">Save job</button>
+            <button class="btn btn-ghost" type="button" id="cancel" hidden>Cancel edit</button>
+          </div>
+          <p class="msg" id="msg" aria-live="polite"></p>
+        </form>
+      </div>
+      <div>
+        <div class="tabs" id="tabs" role="group" aria-label="Filter by status"></div>
+        <div class="job-list" id="admin-list"><p class="empty muted">Loading jobs...</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="common.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
