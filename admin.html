@@ -51,8 +51,10 @@
           <label class="field">Job type
             <select id="job_type"><option>Freelance</option><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option></select></label>
           <label class="field">Category<input id="category" placeholder="e.g. Web Development"></label>
-          <label class="field">Expires on <small>(optional, hides the job automatically)</small><input type="date" id="expires"></label>
+          <label class="field">Skills <small>(comma separated)</small><input id="skills" placeholder="React, Figma, SEO"></label>
+          <label class="field">Application deadline <small>(optional, the job hides itself after this date)</small><input type="date" id="deadline"></label>
           <label class="field">Description<textarea id="description" rows="6"></textarea></label>
+          <label class="check"><input type="checkbox" id="featured"> Feature this job at the top of the list</label>
           <label class="check" id="publish-row"><input type="checkbox" id="publish-now"> Publish right away</label>
           <div style="display:flex;gap:8px">
             <button class="btn btn-primary" type="submit" id="save-btn">Save job</button>
