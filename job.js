@@ -42,7 +42,7 @@ async function loadJob() {
           <button class="btn btn-ghost btn-sm" id="copy">${icon('link', 15)}Copy link</button>
         </div>
         <dl class="facts">
-          ${fact('Posted', timeAgo(d.posted_at))}${fact('Job type', d.job_type)}${fact('Category', d.category)}${fact('Source', d.source)}
+          ${fact('Posted', timeAgo(d.posted_at))}${fact('Job type', d.job_type)}${fact('Category', d.category)}${fact('Source', d.source)}${fact('Apply by', d.deadline ? new Date(d.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '')}
         </dl>
       </div>
       <div class="panel warn"><strong>Never pay to apply.</strong> Real employers don't charge application, training or equipment fees.</div>
