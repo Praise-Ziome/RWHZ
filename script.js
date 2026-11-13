@@ -7,8 +7,9 @@ const $ = id => document.getElementById(id);
 async function loadJobs() {
   $('job-list').innerHTML = Array(4).fill('<div class="skel"><i class="sq"></i><div><i class="l1"></i><i class="l2"></i></div></div>').join('');
   const { data, error } = await db.from('jobs')
-    .select('id,title,company,pay,location,job_type,category,description,posted_at')
+    .select('id,title,company,pay,location,job_type,category,description,posted_at,featured')
     .eq('status', 'published')
+    .order('featured', { ascending: false, nullsFirst: false })
     .order('posted_at', { ascending: false });
   if (error) {
     console.error('Error loading jobs:', error);
@@ -30,7 +31,7 @@ function matches(j) {
 function render() {
   const all = state.jobs, list = all.filter(matches);
   const n = all.length;
-  $('hero-meta').textContent = n ? `${n} live ${n === 1 ? 'job' : 'jobs'}. Latest added ${timeAgo(all[0].posted_at).toLowerCase()}.` : 'New jobs are added every week.';
+  $('hero-meta').textContent = n ? `${n} live ${n === 1 ? 'job' : 'jobs'}. Latest added ${timeAgo(all.reduce((m, j) => (j.posted_at > m ? j.posted_at : m), '')).toLowerCase()}.` : 'New jobs are added every week.';
 
   const counts = {};
   all.forEach(j => { const c = j.category || 'Other'; counts[c] = (counts[c] || 0) + 1; });
@@ -63,6 +64,7 @@ function render() {
         </span>
       </span>
       <span class="job-side">
+        ${j.featured ? '<span class="tag featured">Featured</span>' : ''}
         <span class="tag">${esc(j.job_type || j.category || 'Remote')}</span>
         <span class="verified">${icon('check', 13)}Verified</span>
       </span>
