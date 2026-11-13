@@ -54,7 +54,7 @@ function render() {
       <div class="job-meta">
         <span>${icon('dollar', 14)}${esc(j.pay || 'Pay not specified')}</span>
         <span>${icon('pin', 14)}${esc(j.location || 'Not specified')}</span>
-        ${j.expires_at ? `<span>${icon('clock', 14)}Expires ${esc(new Date(j.expires_at).toLocaleDateString('en-GB'))}</span>` : ''}
+        ${j.featured ? '<span class="status pending">Featured</span>' : ''}${j.deadline ? `<span>${icon('clock', 14)}Deadline ${esc(new Date(j.deadline).toLocaleDateString('en-GB'))}</span>` : ''}
       </div>
       <div class="admin-job-actions">
         <button class="btn btn-ghost btn-sm" data-act="edit" data-id="${esc(j.id)}">Edit</button>
@@ -76,7 +76,7 @@ async function setStatus(act, id) {
   if (!confirm(text)) return;
   const q = db.from('jobs');
   const req = act === 'delete' ? q.delete().eq('id', id).select()
-    : q.update(act === 'publish' ? { status: 'published', posted_at: new Date().toISOString() } : { status: 'expired' }).eq('id', id).select();
+    : q.update(act === 'publish' ? { status: 'published', posted_at: new Date().toISOString(), updated_at: new Date().toISOString() } : { status: 'expired', updated_at: new Date().toISOString() }).eq('id', id).select();
   const { data, error } = await req;
   if (error || !data || !data.length) { console.error(error); alert(`Couldn't ${act} the job. Check that you're an admin and the Supabase policies are in place.`); return; }
   loadJobs();
@@ -93,9 +93,10 @@ function resetForm() {
 }
 function startEdit(id) {
   const j = jobs.find(x => String(x.id) === String(id)); if (!j) return;
-  ['title', 'company', 'source', 'source_url', 'pay', 'location', 'category', 'description'].forEach(k => $(k).value = j[k] || '');
+  ['title', 'company', 'source', 'source_url', 'pay', 'location', 'category', 'skills', 'description'].forEach(k => $(k).value = j[k] || '');
   $('job_type').value = j.job_type || 'Freelance';
-  $('expires').value = j.expires_at ? j.expires_at.slice(0, 10) : '';
+  $('deadline').value = j.deadline ? j.deadline.slice(0, 10) : '';
+  $('featured').checked = !!j.featured;
   editingId = j.id;
   $('form-title').textContent = 'Edit job'; $('save-btn').textContent = 'Save changes';
   $('cancel').hidden = false; $('publish-row').hidden = true;
@@ -109,9 +110,9 @@ form.addEventListener('submit', async e => {
   if (safeUrl(field('source_url')) === '#') { say($('msg'), 'Enter a full job URL starting with https://', 'err'); return; }
   const payload = {
     title: field('title'), company: field('company'), source: field('source'), source_url: field('source_url'),
-    pay: field('pay'), location: field('location'), job_type: $('job_type').value, category: field('category'),
-    description: field('description'),
-    expires_at: $('expires').value ? new Date($('expires').value + 'T23:59:59').toISOString() : null
+    pay: field('pay'), location: field('location'), job_type: $('job_type').value, category: field('category'), skills: field('skills') || null,
+    description: field('description'), featured: $('featured').checked, updated_at: new Date().toISOString(),
+    deadline: $('deadline').value ? new Date($('deadline').value + 'T23:59:59').toISOString() : null
   };
   const publish = !editingId && $('publish-now').checked;
   $('save-btn').disabled = true; say($('msg'), 'Saving...');
